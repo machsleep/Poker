@@ -1,0 +1,5 @@
+!.gitignore
+.cproject 
+.git 
+.project
+Debug/
