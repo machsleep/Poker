@@ -7,7 +7,7 @@
 
 #include "Deck.hpp"
 
-/**
+/*
  * Constructs a standard poker deck of 52 Cards.
  */
 Deck::Deck() {
@@ -22,9 +22,8 @@ Deck::Deck() {
 }
 
 Card Deck::top() {
-	Card c;
 	if (cards.size() == 0) throw "Error: Cannot retrieve top card in Deck::top() when deck is empty.";
-	c = cards[cards.size()-1];
+	Card c = cards[cards.size()-1];
 	cards.pop_back();
 	return c;
 }
