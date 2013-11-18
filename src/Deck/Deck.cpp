@@ -28,6 +28,9 @@ Card Deck::top() {
 	return c;
 }
 
+/*
+ * Outputs each card in deck
+ */
 std::ostream& operator<<(std::ostream& os, const Deck& deck) {
 	os  << "This deck contains the following cards" << std::endl;
 	for (unsigned int i=0; i<deck.cards.size(); i++) {

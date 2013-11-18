@@ -20,7 +20,16 @@ Player::Player(std::string name, unsigned int chair, double money, bool folded, 
 	this->mucked = mucked;
 }
 
-const double  Player::getMoney() const {
+Player::Player(const Player& src) {
+	this->name = src.getName();
+	this->chairIndex = src.getChairIndex();
+	this->money = src.getMoney();
+	this->folded = src.isFolding();
+	this->active = src.isActive();
+	this->mucked = src.doesMuck();
+}
+
+const double Player::getMoney() const {
 	return money;
 }
 
@@ -28,7 +37,7 @@ const bool Player::isPlaying() const {
 	return active && !folded;
 }
 
-const bool Player::isSittingOut() const {
+const bool Player::isActive() const {
 	return !active;
 }
 
@@ -50,13 +59,57 @@ bool Player::placeBid(double bid) {
 	return true;
 }
 
-const std::string& Player::getName() const {
+const std::string Player::getName() const {
 	return name;
 }
 
-const unsigned int& Player::getChairIndex() const {
+const unsigned int Player::getChairIndex() const {
 	return chairIndex;
 }
+
+const std::vector<Card> Player::getHand() const {
+	return hand;
+}
+
+Player& Player::operator=(const Player& src) {
+	if (this == &src) return *this;
+	this->name = src.getName();
+	this->chairIndex = src.getChairIndex();
+	this->money = src.getMoney();
+	this->folded = src.isFolding();
+	this->active = src.isActive();
+	this->mucked = src.doesMuck();
+	return *this;
+}
+
+
+/*
+ * Compares two players by directly comparing their chair indexes.
+ */
+const bool operator<(const Player& lhs, const Player& rhs) {
+	return lhs.chairIndex < rhs.chairIndex;
+}
+
+const bool operator>(const Player& lhs, const Player& rhs) {
+	return lhs.chairIndex > rhs.chairIndex;
+}
+
+/*
+ * Compares two players by directly comparing their chair indexes.
+ */
+const bool operator<=(const Player& lhs, const Player& rhs) {
+	return lhs.chairIndex <= rhs.chairIndex;
+}
+
+const bool operator==(const Player& lhs, const Player& rhs) {
+	return lhs.name == rhs.name;
+}
+
+std::ostream& operator<<(std::ostream& os, const Player player) {
+	os << player.name;
+	return os;
+}
+
 
 
 

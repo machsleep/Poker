@@ -10,6 +10,7 @@
 
 #include "../Deck/Deck.hpp"
 #include "../Player/Player.hpp"
+#include "Table.hpp"
 
 #include <vector>
 #include <map>
@@ -20,30 +21,29 @@ using std::map;
 
 /*! The base class for any card game */
 class Game {
-	public:
-		Game();
-		/**
-		 * Returns the cards on the board that all players can see.
-		 */
-		const vector<Card>& getBoard() const;
-		const vector<Player>& getPlayers() const;
-		const Player* getDealer() const;
-		const unsigned int& getBettingRound() const;
-		const Deck& getDeck() const;
-		const vector<Player*>& getActivePlayers();
+public:
+	Game();
+	/**
+	 * Returns the cards on the board that all players can see.
+	 */
+	const vector<Card>* getBoard() const;
+	const Player* getDealer() const;
+	const Deck* getDeck() const;
+	const LoopList<Player>* getPlayers() const;
+	const LoopList<Player>* getActivePlayers() const;
+	const Player* getPlayerAtChair(int chair) const;
+	const unsigned int& getBettingRound() const;
 
-		const Card topCardOfDeck();
-		Player& getPlayerAtChair(int chair);
 
-	private:
+	const Card topCardOfDeck();
 
-		Player* dealer;
-		unsigned int bettingRound;
-		Deck cardDeck;
-		vector<Card> board;
-		vector<Card> discard;
-		vector<Player> players;
-		vector<Player*> activePlayers;
+private:
+	// Table of players (implemented as a loop list)
+	Table table;
+	unsigned int bettingRound;
+	Deck cardDeck;
+	vector<Card> board;
+	vector<Card> discard;
 };
 
 

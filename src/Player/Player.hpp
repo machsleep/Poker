@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <ostream>
 
 #include "../Card/Card.hpp"
 
@@ -29,6 +30,7 @@ class Player {
 		 * @param bool mucked, true if a player mucks his/her cards.
 		 */
 		Player(std::string name="", unsigned int chair=0, double money=0, bool folded=false, bool active=false, bool mucked=false);
+		Player(const Player& src);
 
 		virtual ~Player();
 
@@ -37,7 +39,7 @@ class Player {
 		 * <p>
 		 * @return const std::string&, name
 		 */
-		virtual const std::string& getName() const;
+		virtual const std::string getName() const;
 
 		/**
 		 * Returns the money available to the poker player.
@@ -59,16 +61,28 @@ class Player {
 		 * <p>
 		 * @return const bool
 		 */
-		virtual const bool isSittingOut() const;
+		virtual const bool isActive() const;
 
 		/**
 		 * Returns true if a player mucked his cards
 		 */
 		virtual const bool doesMuck() const;
 		virtual const bool isFolding() const;
-		virtual void addCardToHand(Card card);
-		virtual const unsigned int& getChairIndex() const;
+		virtual const unsigned int getChairIndex() const;
+		virtual const std::vector<Card> getHand() const;
+
 		virtual bool placeBid(double bidAmount);
+		virtual void addCardToHand(Card card);
+
+		Player& operator=(const Player& src);
+
+		friend const bool operator<(const Player& lhs, const Player& rhs);
+		friend const bool operator>(const Player& lhs, const Player& rhs);
+		friend const bool operator<=(const Player& lhs, const Player& rhs);
+		friend const bool operator==(const Player& lhs, const Player& rhs);
+		friend std::ostream& operator<<(std::ostream& os, const Player player);
+
+
 	private:
 		std::string name;
 		std::vector<Card> hand;

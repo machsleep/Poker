@@ -1,5 +1,4 @@
-!.gitignore
-.cproject 
-.git 
-.project
+!/.gitignore
+/.*
+Release/
 Debug/

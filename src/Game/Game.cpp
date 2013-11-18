@@ -8,15 +8,10 @@
 
 Game::Game() {
 	bettingRound = 0;
-	dealer = NULL;
 }
 
-const vector<Player*>& Game::getActivePlayers() {
-	if (activePlayers.size() != 0 ) return activePlayers;
-	for (unsigned int i=0;i<players.size();i++)
-		if(players[i].isPlaying())
-			activePlayers.push_back(&players[i]);
-	return activePlayers;
+const LoopList<Player>* Game::getActivePlayers() const {
+	return table.getActivePlayers();
 }
 
 const unsigned int& Game::getBettingRound() const {
@@ -24,21 +19,21 @@ const unsigned int& Game::getBettingRound() const {
 }
 
 const Player* Game::getDealer() const {
-	return dealer;
+	return table.getDealer();
 }
 
-Player& Game::getPlayerAtChair(int i) {
-	return players[i];
+const Player* Game::getPlayerAtChair(int i) const {
+	return table.getPlayerAtChair(i);
 }
 
 const Card Game::topCardOfDeck() {
 	return cardDeck.top();
 }
 
-const vector<Player>& Game::getPlayers() const {
-	return players;
+const LoopList<Player>* Game::getPlayers() const {
+	return table.getPlayers();
 }
 
-const vector<Card>& Game::getBoard() const {
-	return board;
+const vector<Card>* Game::getBoard() const {
+	return &board;
 }
