@@ -70,9 +70,7 @@ class Player {
 		virtual const bool isFolding() const;
 		virtual const unsigned int getChairIndex() const;
 		virtual const std::vector<Card> getHand() const;
-
 		virtual bool placeBid(double bidAmount);
-		virtual void addCardToHand(Card card);
 
 		Player& operator=(const Player& src);
 
@@ -82,6 +80,8 @@ class Player {
 		friend const bool operator==(const Player& lhs, const Player& rhs);
 		friend std::ostream& operator<<(std::ostream& os, const Player player);
 
+		// Friend classes
+		friend class Rules;
 
 	private:
 		std::string name;

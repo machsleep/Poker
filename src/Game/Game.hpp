@@ -9,7 +9,7 @@
 #define GAME_HPP_
 
 #include "../Deck/Deck.hpp"
-#include "../Player/Player.hpp"
+#include "../Containers/LoopList.hpp"
 #include "Table.hpp"
 
 #include <vector>
@@ -17,12 +17,16 @@
 
 using std::vector;
 using std::map;
+using std::ostream;
 
+class Player;
+class Rules;
 
 /*! The base class for any card game */
 class Game {
 public:
 	Game();
+	virtual ~Game();
 	/**
 	 * Returns the cards on the board that all players can see.
 	 */
@@ -33,13 +37,27 @@ public:
 	const LoopList<Player>* getActivePlayers() const;
 	const Player* getPlayerAtChair(int chair) const;
 	const unsigned int& getBettingRound() const;
-
-
 	const Card topCardOfDeck();
+
+	void dealCards();
+	void addPlayerToTable(Player& player);
+
+	/**
+	 * Lists all players to the chosen output stream.
+	 */
+	void listPlayers(ostream& os) const;
+
+	/**
+	 * Lists all active players to the chosen output stream.
+	 */
+	void listActivePlayers(ostream& os) const;
+
+	friend class Rules;
 
 private:
 	// Table of players (implemented as a loop list)
-	Table table;
+	Table *table;
+	Rules *rules;
 	unsigned int bettingRound;
 	Deck cardDeck;
 	vector<Card> board;

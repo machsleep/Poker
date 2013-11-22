@@ -6,12 +6,25 @@
  */
 
 #include "Rules.hpp"
+#include "Game.hpp"
+
+Rules::Rules(Game& game) {
+	this->game = &game;
+}
+
+Rules::~Rules() {
+
+}
 
 void Rules::dealCards() {
-
-
-	switch (game.getBettingRound()) {
+	switch (game->bettingRound) {
 		case 0:
+			Player *player;
+			for (int i=0;i<2;i++) {
+				while ((player = game->table->activePlayers.next())) {
+					addCardToPlayersHand(*player,game->topCardOfDeck());
+				}
+			}
 			break;
 		case 1:
 			break;
@@ -23,7 +36,10 @@ void Rules::dealCards() {
 			break;
 
 	}
+}
 
+void Rules::addCardToPlayersHand(Player& player, const Card& card) {
+	player.hand.push_back(card);
 }
 
 

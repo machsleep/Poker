@@ -7,21 +7,21 @@
 #include "src/Deck/Deck.hpp"
 #include "src/Containers/LoopList.hpp"
 #include "src/Player/Player.hpp"
+#include "src/Game/Game.hpp"
+
 
 int main(int nArgs, char** arguments) {
 
 	try {
+		Game game;
+
 		Player p1("Amanda",0), p2("Justin",3), p3("zach",1), p4("greg",2);
-		LoopList<Player> players;
-		players.add(p1);
-		players.add(p2);
-		players.add(p3);
-		players.add(p4);
-		for (int i=0;i<5;i++)
-			cout << players.popFront() << endl;;
-		//players.remove(p2);
-		cout << players;
-		cout << flush;
+
+		game.addPlayerToTable(p1);
+		game.addPlayerToTable(p2);
+		game.listPlayers(cout);
+		game.listActivePlayers(cout);
+
 	} catch (const char* msg) {
 		cout << msg;
 	}

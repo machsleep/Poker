@@ -17,10 +17,10 @@ class LoopList {
 		const Node<T>* getHead();
 
 		void add(T data);
-		T popFront();
 		bool remove(T& element);
-
-		size_t getSize() const;
+		T popFront();
+		unsigned int getSize() const;
+		T* next();
 
 		template <typename R>
 		friend ostream& operator<<(ostream& os, const LoopList<R>& ll);
@@ -31,7 +31,8 @@ class LoopList {
 		void updateTail();
 		Node<T> *head;
 		Node<T> *tail;
-		size_t size;
+		Node<T> *nextElement;
+		unsigned int size;
 };
 
 #include "LoopList.cpp"

@@ -7,8 +7,13 @@
 
 #include "Table.hpp"
 
-Table::Table() {
+Table::Table(Game& game) {
 	dealer = NULL;
+	this->game = &game;
+}
+
+Table::~Table() {
+
 }
 
 const LoopList<Player>* Table::getActivePlayers() const {
@@ -27,7 +32,7 @@ const Player* Table::getDealer() const {
 	return NULL;
 }
 
-Table::~Table() {
-	// TODO Auto-generated destructor stub
+void Table::addPlayer(Player& player) {
+	Player pl = player;
+	this->allPlayers.add(player);
 }
-

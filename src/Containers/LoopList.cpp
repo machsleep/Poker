@@ -2,22 +2,24 @@
 #define LOOPLIST_CPP_
 
 #include <ostream>
+#include <iostream>
 #include "LoopList.hpp"
 
 using std::ostream;
+using std::cout;
 
 template <typename T>
 LoopList<T>::LoopList() {
 	head = NULL;
 	tail = NULL;
+	nextElement = NULL;
 	size = 0;
 }
 
 template <typename T>
 LoopList<T>::LoopList(const LoopList<T>& src) {
 	if (src.getSize() == 0) {
-		head = NULL;
-		tail = NULL;
+		head = tail = nextElement = NULL;
 		size = 0;
 		return;
 	}
@@ -35,6 +37,7 @@ LoopList<T>::LoopList(const LoopList<T>& src) {
 	}
 	tail = cur;
 	size = src.getSize();
+	next = head;
 }
 
 template <typename T>
@@ -61,6 +64,7 @@ T LoopList<T>::popFront() {
 	Node<T>* tmp = head;
 	head = tmp->nextNode;
 	tail->nextNode = head;
+	nextElement = head;
 	size--;
 	T data = tmp->data;
 	delete tmp;
@@ -92,7 +96,7 @@ bool LoopList<T>::remove(T& element) {
 
 
 template <typename T>
-size_t LoopList<T>::getSize() const {
+unsigned int LoopList<T>::getSize() const {
 	return size;
 }
 
@@ -104,6 +108,24 @@ ostream& operator<<(ostream& os, const LoopList<T>& ll) {
 		hdcpy = hdcpy->nextNode;
 	}
 	return os;
+}
+
+template <typename T>
+T* LoopList<T>::next() {
+	if (size == 0) throw "Can't call next for a zero size LoopList.";
+	T *dat;
+	if (nextElement && nextElement->nextNode != head) {
+		dat = &nextElement->data;
+		nextElement = nextElement->nextNode;
+		return dat;
+	} else if(nextElement) {
+		T* dat = &nextElement->data;
+		nextElement = NULL;
+		return dat;
+	} else {
+		nextElement = head;
+		return NULL;
+	}
 }
 
 template <typename T>
@@ -136,6 +158,7 @@ void LoopList<T>::add(T data) {
 		}
 	}
 	updateTail();
+	nextElement = head;
 	size++;
 }
 

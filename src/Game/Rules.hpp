@@ -9,14 +9,15 @@
 #define RULES_HPP_
 
 #include "../Player/Player.hpp"
-#include "Game.hpp"
+
+class Game;
 
 /** Deals cards, ends game, validates bidding amounts, determines winners, and distributes winnings */
 class Rules {
 	public:
-		Rules();
+		Rules(Game& game);
 		virtual ~Rules();
-		virtual const bool isBidValid(double bid) const;
+		//virtual const bool isBidValid(double bid) const;
 		/**
 		 * The default dealCards function  uses a Texas-hold'em
 		 * method. This method should be called each time a bidding round ends.
@@ -31,10 +32,11 @@ class Rules {
 		 * behavior.
 		 */
 		virtual void dealCards();
-		virtual Player& getWinner() const;
-		virtual void payOffPlayers();
+		//virtual Player& getWinner() const;
+		//virtual void payOffPlayers();
+		virtual void addCardToPlayersHand(Player& player, const Card& card);
 	private:
-		Game& game;
+		Game *game;
 };
 
 

@@ -49,10 +49,6 @@ const bool Player::doesMuck() const {
 	return mucked;
 }
 
-void Player::addCardToHand(Card card) {
-	hand.push_back(card);
-}
-
 bool Player::placeBid(double bid) {
 	if (money - bid < 0) return false;
 	money-=bid;
