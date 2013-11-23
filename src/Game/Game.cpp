@@ -19,11 +19,16 @@ Game::~Game() {
 	delete rules;
 }
 
+
+void Game::dealCards() {
+	rules->dealCards();
+}
+
 void Game::addPlayerToTable(Player& player) {
 	table->addPlayer(player);
 }
 
-const LoopList<Player>* Game::getActivePlayers() const {
+const LoopList<Player*>* Game::getActivePlayers() const {
 	return table->getActivePlayers();
 }
 
@@ -40,10 +45,6 @@ const Player* Game::getPlayerAtChair(int i) const {
 
 }
 
-const Card Game::topCardOfDeck() {
-	return cardDeck.top();
-}
-
 const LoopList<Player>* Game::getPlayers() const {
 	return table->getPlayers();
 }
@@ -57,5 +58,11 @@ void Game::listPlayers(ostream& os) const {
 }
 
 void Game::listActivePlayers(ostream& os) const {
-	os << *table->getActivePlayers();
+	Player *player;
+	LoopList<Player*> *activePlayers = table->getActivePlayers();
+
+	while ( ( player = *( activePlayers->next() )  ) ) {
+		os << (*player) << endl;
+	}
+	//os << *table->getActivePlayers();
 }

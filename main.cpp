@@ -15,12 +15,18 @@ int main(int nArgs, char** arguments) {
 	try {
 		Game game;
 
-		Player p1("Amanda",0), p2("Justin",3), p3("zach",1), p4("greg",2);
+		Player p1("Amanda",0,10.0,false,true,true),
+		       p2("Justin",1,20.0,false,true,true),
+		       p3("zach",1),
+		       p4("greg",2);
 
 		game.addPlayerToTable(p1);
 		game.addPlayerToTable(p2);
+		game.dealCards();
 		game.listPlayers(cout);
+		cout << endl;
 		game.listActivePlayers(cout);
+
 
 	} catch (const char* msg) {
 		cout << msg;

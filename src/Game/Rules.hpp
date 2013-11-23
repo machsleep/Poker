@@ -34,7 +34,6 @@ class Rules {
 		virtual void dealCards();
 		//virtual Player& getWinner() const;
 		//virtual void payOffPlayers();
-		virtual void addCardToPlayersHand(Player& player, const Card& card);
 	private:
 		Game *game;
 };

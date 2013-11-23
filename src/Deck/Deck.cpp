@@ -21,11 +21,11 @@ Deck::Deck() {
 	}
 }
 
-Card Deck::top() {
+const Card& Deck::top() {
 	if (cards.size() == 0) throw "Error: Cannot retrieve top card in Deck::top() when deck is empty.";
-	Card c = cards[cards.size()-1];
+	cardsDealt.push_back(cards[cards.size()-1]);
 	cards.pop_back();
-	return c;
+	return cardsDealt[cardsDealt.size()-1];
 }
 
 /*

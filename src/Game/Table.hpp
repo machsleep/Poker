@@ -17,8 +17,8 @@ class Table {
 	public:
 		Table(Game& game);
 		virtual ~Table();
-		const LoopList<Player>* getActivePlayers() const;
-		const LoopList<Player>* getPlayers() const;
+		LoopList<Player*>* getActivePlayers();
+		LoopList<Player>* getPlayers();
 		const Player* getDealer() const;
 		const Player* getPlayerAtChair(int chairIdx) const;
 
@@ -29,7 +29,8 @@ class Table {
 	private:
 		Game *game;
 		LoopList<Player> allPlayers;
-		LoopList<Player> activePlayers;
+		// Ptrs to elements in allPlayers
+		LoopList<Player*> activePlayers;
 		Player* dealer;
 
 };

@@ -78,7 +78,7 @@ class Player {
 		friend const bool operator>(const Player& lhs, const Player& rhs);
 		friend const bool operator<=(const Player& lhs, const Player& rhs);
 		friend const bool operator==(const Player& lhs, const Player& rhs);
-		friend std::ostream& operator<<(std::ostream& os, const Player player);
+		friend std::ostream& operator<<(std::ostream& os, const Player& player);
 
 		// Friend classes
 		friend class Rules;

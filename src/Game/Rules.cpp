@@ -19,10 +19,12 @@ Rules::~Rules() {
 void Rules::dealCards() {
 	switch (game->bettingRound) {
 		case 0:
-			Player *player;
+			Player **player;
 			for (int i=0;i<2;i++) {
-				while ((player = game->table->activePlayers.next())) {
-					addCardToPlayersHand(*player,game->topCardOfDeck());
+				while ((player = (game->table->activePlayers.next()) ) ) {
+					if (player == NULL) break;
+					const Card *c = &(game->cardDeck.top());
+					(*player)->hand.push_back(*c);
 				}
 			}
 			break;
@@ -38,8 +40,5 @@ void Rules::dealCards() {
 	}
 }
 
-void Rules::addCardToPlayersHand(Player& player, const Card& card) {
-	player.hand.push_back(card);
-}
 
 

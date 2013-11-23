@@ -34,10 +34,9 @@ public:
 	const Player* getDealer() const;
 	const Deck* getDeck() const;
 	const LoopList<Player>* getPlayers() const;
-	const LoopList<Player>* getActivePlayers() const;
+	const LoopList<Player*>* getActivePlayers() const;
 	const Player* getPlayerAtChair(int chair) const;
 	const unsigned int& getBettingRound() const;
-	const Card topCardOfDeck();
 
 	void dealCards();
 	void addPlayerToTable(Player& player);

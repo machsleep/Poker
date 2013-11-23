@@ -16,11 +16,11 @@ Table::~Table() {
 
 }
 
-const LoopList<Player>* Table::getActivePlayers() const {
+ LoopList<Player*>* Table::getActivePlayers() {
 	return &activePlayers;
 }
 
-const LoopList<Player>* Table::getPlayers() const {
+ LoopList<Player>* Table::getPlayers()  {
 	return &allPlayers;
 }
 
@@ -33,6 +33,8 @@ const Player* Table::getDealer() const {
 }
 
 void Table::addPlayer(Player& player) {
-	Player pl = player;
-	this->allPlayers.add(player);
+	allPlayers.add(player);
+	Player *p = allPlayers.getLast();
+	if (player.isActive())
+		activePlayers.add(p);
 }

@@ -10,9 +10,8 @@ using std::cout;
 
 template <typename T>
 LoopList<T>::LoopList() {
-	head = NULL;
-	tail = NULL;
-	nextElement = NULL;
+	head = tail = nextElement = NULL;
+	lastAdded = NULL;
 	size = 0;
 }
 
@@ -20,6 +19,7 @@ template <typename T>
 LoopList<T>::LoopList(const LoopList<T>& src) {
 	if (src.getSize() == 0) {
 		head = tail = nextElement = NULL;
+		lastAdded = NULL;
 		size = 0;
 		return;
 	}
@@ -37,7 +37,14 @@ LoopList<T>::LoopList(const LoopList<T>& src) {
 	}
 	tail = cur;
 	size = src.getSize();
+	lastAdded = src.getLast();
 	next = head;
+}
+
+template<typename T>
+T* LoopList<T>::getLast() const {
+	if (lastAdded == NULL || size == 0) throw "Cannot get last when size is 0 or if you removed an element after adding.";
+	return lastAdded;
 }
 
 template <typename T>
@@ -53,8 +60,8 @@ LoopList<T>::~LoopList(){
 		delete head;
 		head = tmp;
 	}
-	tail = NULL;
-	head = NULL;
+	head = tail = nextElement = NULL;
+	lastAdded = NULL;
 	size = 0;
 }
 
@@ -67,6 +74,7 @@ T LoopList<T>::popFront() {
 	nextElement = head;
 	size--;
 	T data = tmp->data;
+	lastAdded = NULL;
 	delete tmp;
 	return data;
 }
@@ -86,6 +94,7 @@ bool LoopList<T>::remove(T& element) {
 				cur->nextNode = tmp->nextNode;
 				delete tmp;
 				size--;
+				lastAdded = NULL;
 				return true;
 			}
 			cur = cur->nextNode;
@@ -104,7 +113,7 @@ template <typename T>
 ostream& operator<<(ostream& os, const LoopList<T>& ll) {
 	Node<T> *hdcpy = ll.head;
 	for (unsigned int i=0; i<ll.getSize(); i++) {
-		os << hdcpy->data << " ";
+		os << hdcpy->data << "\n";
 		hdcpy = hdcpy->nextNode;
 	}
 	return os;
@@ -129,9 +138,11 @@ T* LoopList<T>::next() {
 }
 
 template <typename T>
-void LoopList<T>::add(T data) {
+void LoopList<T>::add(T& data) {
 	Node<T> *node = new Node<T>();
+	// Copy our data
 	node->data = data;
+	lastAdded = &node->data;
 	Node<T> *cur = head;
 	if (head == NULL) {
 		head = node;

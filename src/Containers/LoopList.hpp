@@ -16,10 +16,11 @@ class LoopList {
 
 		const Node<T>* getHead();
 
-		void add(T data);
+		void add(T& data);
 		bool remove(T& element);
 		T popFront();
 		unsigned int getSize() const;
+		T* getLast() const;
 		T* next();
 
 		template <typename R>
@@ -32,6 +33,7 @@ class LoopList {
 		Node<T> *head;
 		Node<T> *tail;
 		Node<T> *nextElement;
+		T *lastAdded;
 		unsigned int size;
 };
 

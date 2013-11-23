@@ -38,7 +38,7 @@ const bool Player::isPlaying() const {
 }
 
 const bool Player::isActive() const {
-	return !active;
+	return active;
 }
 
 const bool Player::isFolding() const {
@@ -91,7 +91,7 @@ const bool operator>(const Player& lhs, const Player& rhs) {
 }
 
 /*
- * Compares two players by directly comparing their chair indexes.
+ * Compares two players by their chair indexes.
  */
 const bool operator<=(const Player& lhs, const Player& rhs) {
 	return lhs.chairIndex <= rhs.chairIndex;
@@ -101,8 +101,12 @@ const bool operator==(const Player& lhs, const Player& rhs) {
 	return lhs.name == rhs.name;
 }
 
-std::ostream& operator<<(std::ostream& os, const Player player) {
-	os << player.name;
+std::ostream& operator<<(std::ostream& os, const Player& player) {
+	os << player.name << " ";
+	os << "#cards: " << player.hand.size() << " ";
+	for (unsigned int i=0;i<player.hand.size();i++) {
+		os << player.hand[i] << " ";
+	}
 	return os;
 }
 
