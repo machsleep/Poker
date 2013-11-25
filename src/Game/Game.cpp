@@ -23,6 +23,10 @@ void Game::dealCards() {
 	rules->dealCards();
 }
 
+void Game::initialize() {
+	rules->initializeDealer();
+}
+
 void Game::addPlayerToTable(Player& player) {
 	table->addPlayer(player);
 }
@@ -31,8 +35,8 @@ const unsigned int& Game::getBettingRound() const {
 	return bettingRound;
 }
 
-const Player& Game::getDealer() const {
-	return table->getDealer();
+Player& Game::getDealer() const {
+	return *table->getDealer();
 }
 
 const Player& Game::getPlayerAtChair(int i) const {
@@ -56,12 +60,7 @@ const Deck& Game::getDeck() const {
 }
 
 void Game::listActivePlayers(ostream& os) const {
-	//SharedPtrToPlayer player;
 
-	//while ( ( player = ( activePlayers->next() )  ) ) {
-	//	os << (*player) << endl;
-	//}
-	//os << *table->getActivePlayers();
 }
 
 void Game::shuffleDeck() {

@@ -10,7 +10,7 @@ using std::cout;
 
 template <typename T>
 LoopList<T>::LoopList() {
-	head = tail = nextElement = NULL;
+	head = tail = curElement = NULL;
 	lastAdded = NULL;
 	size = 0;
 }
@@ -18,7 +18,7 @@ LoopList<T>::LoopList() {
 template <typename T>
 LoopList<T>::LoopList(const LoopList<T>& src) {
 	if (src.getSize() == 0) {
-		head = tail = nextElement = NULL;
+		head = tail = curElement = NULL;
 		lastAdded = NULL;
 		size = 0;
 		return;
@@ -60,7 +60,7 @@ LoopList<T>::~LoopList(){
 		delete head;
 		head = tmp;
 	}
-	head = tail = nextElement = NULL;
+	head = tail = curElement = NULL;
 	lastAdded = NULL;
 	size = 0;
 }
@@ -71,7 +71,7 @@ T LoopList<T>::popFront() {
 	Node<T>* tmp = head;
 	head = tmp->nextNode;
 	tail->nextNode = head;
-	nextElement = head;
+	curElement = head;
 	size--;
 	T data = tmp->data;
 	lastAdded = NULL;
@@ -123,18 +123,46 @@ template <typename T>
 T* LoopList<T>::next() {
 	if (size == 0) throw "Can't call next for a zero size LoopList.";
 	T *dat;
-	if (nextElement && nextElement->nextNode != head) {
-		dat = &nextElement->data;
-		nextElement = nextElement->nextNode;
+	if (curElement && curElement->nextNode != head) {
+		dat = &curElement->data;
+		curElement = curElement->nextNode;
 		return dat;
-	} else if(nextElement) {
-		T* dat = &nextElement->data;
-		nextElement = NULL;
+	} else if(curElement) {
+		T* dat = &curElement->data;
+		curElement = NULL;
 		return dat;
 	} else {
-		nextElement = head;
+		curElement = head;
 		return NULL;
 	}
+}
+
+template <typename T>
+T* LoopList<T>::nextCurElement() {
+	curElement = curElement->nextNode;
+	return &curElement->data;
+}
+
+template <typename T>
+void LoopList<T>::setCurElement(T& data) {
+	if (size == 0) return;
+	Node<T>	*cur = head;
+	while ( !(cur->data == data) ) {
+		cur = cur->nextNode;
+		if (cur == head)
+			break;
+	}
+	curElement = cur;
+}
+
+template <typename T>
+void LoopList<T>::reset() {
+	curElement = head;
+}
+
+template <typename T>
+T& LoopList<T>::getCurElement() {
+	return curElement->data;
 }
 
 template <typename T>
@@ -169,7 +197,7 @@ void LoopList<T>::add(T& data) {
 		}
 	}
 	updateTail();
-	nextElement = head;
+	curElement = head;
 	size++;
 }
 

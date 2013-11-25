@@ -18,7 +18,7 @@ class Table {
 		Table(Game& game);
 		virtual ~Table();
 		LoopList<Player>& getPlayers();
-		const Player& getDealer() const;
+		Player* getDealer() const;
 		unsigned int getNumberOfActivePlayers();
 		void setDealer(unsigned int activePlayerIndex);
 		const Player& getPlayerAtChair(int chairIdx) const;

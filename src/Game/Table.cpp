@@ -25,8 +25,8 @@ const Player& Table::getPlayerAtChair(int i) const {
 	return allPlayers[i];
 }
 
-const Player& Table::getDealer() const {
-	return *dealer;
+Player* Table::getDealer() const {
+	return dealer;
 }
 
 void Table::addPlayer(Player& player) {
@@ -36,6 +36,8 @@ void Table::addPlayer(Player& player) {
 void Table::setDealer(unsigned int activePlayerIndex) {
 	Player *p;
 	unsigned int tmp = -1;
+	// Make sure we search through the beginning of the list
+	allPlayers.reset();
 	while ( (p=allPlayers.next()) ) {
 		if (p->isActive()) tmp++;
 		if (tmp == activePlayerIndex) {
@@ -43,6 +45,7 @@ void Table::setDealer(unsigned int activePlayerIndex) {
 			break;
 		}
 	}
+	allPlayers.setCurElement(*dealer);
 }
 
 unsigned int Table::getNumberOfActivePlayers() {

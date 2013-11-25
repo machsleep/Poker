@@ -31,7 +31,7 @@ public:
 	 * Returns the cards on the board that all players can see.
 	 */
 	const vector<Card>* getBoard() const;
-	const Player& getDealer() const;
+	Player& getDealer() const;
 	const Deck& getDeck() const;
 	const LoopList<Player>& getPlayers() const;
 	const Player& getPlayerAtChair(int chair) const;
@@ -50,6 +50,8 @@ public:
 	 * Lists all active players to the chosen output stream.
 	 */
 	void listActivePlayers(ostream& os) const;
+
+	void initialize();
 
 	friend class Rules;
 

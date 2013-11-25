@@ -19,15 +19,18 @@ Rules::~Rules() {
 }
 
 void Rules::dealCards() {
-	if (&game->table->getDealer() == NULL) throw "Need to initialize a dealer before you can deal cards.";
+	if (game->table->getDealer() == NULL) throw "Need to initialize a dealer before you can deal cards.";
 	switch (game->bettingRound) {
 		case 0:
+			// This is the dealer
 			Player *player;
+			player = &game->table->allPlayers.getCurElement();
 			for (int i=0;i<2;i++) {
-				while ( ( player = game->table->allPlayers.next() ) ) {
-					if (player == NULL) break;
+				while (true) {
 					if (player->isActive())
 						player->hand.push_back( &game->cardDeck.top() );
+					player = game->table->allPlayers.nextCurElement();
+					if (player == game->table->getDealer()) break;
 				}
 			}
 			break;
@@ -43,6 +46,7 @@ void Rules::dealCards() {
 	}
 }
 
+// Randomly choose an active player, pass this int to the Table to set dealer
 void Rules::initializeDealer() {
 	unsigned int numActivePlayers = game->table->getNumberOfActivePlayers();
 	typedef boost::mt19937 RNGType;
