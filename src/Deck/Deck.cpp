@@ -18,11 +18,10 @@ Deck::Deck() {
 		Suit::type st = static_cast<Suit::type>(suit);
 		for (int rank = 1; rank <= 13 ; rank++) {
 			Rank::type rnk = static_cast<Rank::type>(rank);
-			Card card(rnk, st);
-			cards.push_back(card);
+			cards.push_back(Card(rnk,st));
 		}
 	}
-	currentCard=0;
+	currentCard=-1;
 }
 
 const Card& Deck::top() {
@@ -52,7 +51,7 @@ void Deck::shuffle() {
 	rng.seed(time_ui);
 	boost::uniform_int<> card_picker;
 	boost::variate_generator<RNGType, boost::uniform_int<> > cardchoice(rng, card_picker);
-	std::random_shuffle(cards.begin(), cards.end(), cardchoice);;
+	std::random_shuffle(cards.begin(), cards.end(), cardchoice);
 }
 
 Deck::~Deck() {

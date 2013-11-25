@@ -31,7 +31,10 @@ class Rules {
 		 * Note: If you would like to create another game, derive a new Game class and override this default
 		 * behavior.
 		 */
-		virtual void dealCards();
+		void dealCards();
+		void initializeDealer();
+
+
 		//virtual Player& getWinner() const;
 		//virtual void payOffPlayers();
 	private:

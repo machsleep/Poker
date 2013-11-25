@@ -11,6 +11,7 @@
 #include "../Deck/Deck.hpp"
 #include "../Containers/LoopList.hpp"
 #include "Table.hpp"
+#include "../Player/Player.hpp"
 
 #include <vector>
 #include <map>
@@ -19,7 +20,6 @@ using std::vector;
 using std::map;
 using std::ostream;
 
-class Player;
 class Rules;
 
 /*! The base class for any card game */
@@ -31,10 +31,9 @@ public:
 	 * Returns the cards on the board that all players can see.
 	 */
 	const vector<Card>* getBoard() const;
-	const Player* getDealer() const;
+	const Player& getDealer() const;
 	const Deck& getDeck() const;
-	const LoopList<Player>* getPlayers() const;
-	const LoopList<Player*>* getActivePlayers() const;
+	const LoopList<Player>& getPlayers() const;
 	const Player& getPlayerAtChair(int chair) const;
 	const unsigned int& getBettingRound() const;
 

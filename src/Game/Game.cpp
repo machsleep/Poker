@@ -19,7 +19,6 @@ Game::~Game() {
 	delete rules;
 }
 
-
 void Game::dealCards() {
 	rules->dealCards();
 }
@@ -28,24 +27,19 @@ void Game::addPlayerToTable(Player& player) {
 	table->addPlayer(player);
 }
 
-const LoopList<Player*>* Game::getActivePlayers() const {
-	return table->getActivePlayers();
-}
-
 const unsigned int& Game::getBettingRound() const {
 	return bettingRound;
 }
 
-const Player* Game::getDealer() const {
+const Player& Game::getDealer() const {
 	return table->getDealer();
 }
 
 const Player& Game::getPlayerAtChair(int i) const {
-	return *table->getPlayerAtChair(i);
-
+	return table->getPlayerAtChair(i);
 }
 
-const LoopList<Player>* Game::getPlayers() const {
+const LoopList<Player>& Game::getPlayers() const {
 	return table->getPlayers();
 }
 
@@ -54,7 +48,7 @@ const vector<Card>* Game::getBoard() const {
 }
 
 void Game::listPlayers(ostream& os) const {
-	os << *table->getPlayers();
+	os << table->getPlayers();
 }
 
 const Deck& Game::getDeck() const {
@@ -62,12 +56,11 @@ const Deck& Game::getDeck() const {
 }
 
 void Game::listActivePlayers(ostream& os) const {
-	Player *player;
-	LoopList<Player*> *activePlayers = table->getActivePlayers();
+	//SharedPtrToPlayer player;
 
-	while ( ( player = *( activePlayers->next() )  ) ) {
-		os << (*player) << endl;
-	}
+	//while ( ( player = ( activePlayers->next() )  ) ) {
+	//	os << (*player) << endl;
+	//}
 	//os << *table->getActivePlayers();
 }
 

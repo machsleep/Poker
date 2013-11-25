@@ -64,7 +64,7 @@ const unsigned int Player::getChairIndex() const {
 	return chairIndex;
 }
 
-const std::vector<SharedPtrToCard> Player::getHand() const {
+const std::vector<const Card*>& Player::getHand() const {
 	return hand;
 }
 

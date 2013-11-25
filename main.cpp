@@ -26,7 +26,7 @@ int main(int nArgs, char** arguments) {
 		game.dealCards();
 		game.listPlayers(cout);
 		cout << endl;
-		game.listActivePlayers(cout);
+		//game.listActivePlayers(cout);
 
 
 	} catch (const char* msg) {

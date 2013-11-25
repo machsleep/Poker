@@ -12,6 +12,8 @@
 #include <vector>
 #include <ostream>
 
+#include <boost/shared_ptr.hpp>
+
 #include "../Card/Card.hpp"
 
 class Player {
@@ -69,7 +71,7 @@ class Player {
 		const bool doesMuck() const;
 		const bool isFolding() const;
 		const unsigned int getChairIndex() const;
-		const std::vector<SharedPtrToCard> getHand() const;
+		const std::vector<const Card*>& getHand() const;
 		virtual bool placeBid(double bidAmount);
 
 		Player& operator=(const Player& src);
@@ -85,7 +87,7 @@ class Player {
 
 	private:
 		std::string name;
-		std::vector<SharedPtrToCard> hand;
+		std::vector<const Card*> hand;
 		unsigned int chairIndex;
 		double money;
 		bool folded;

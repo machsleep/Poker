@@ -17,19 +17,18 @@ class Table {
 	public:
 		Table(Game& game);
 		virtual ~Table();
-		LoopList<Player*>* getActivePlayers();
-		LoopList<Player>* getPlayers();
-		const Player* getDealer() const;
-		const Player* getPlayerAtChair(int chairIdx) const;
-
+		LoopList<Player>& getPlayers();
+		const Player& getDealer() const;
+		unsigned int getNumberOfActivePlayers();
+		void setDealer(unsigned int activePlayerIndex);
+		const Player& getPlayerAtChair(int chairIdx) const;
 		void addPlayer(Player& player);
 		friend class Rules;
 
 	private:
 		Game *game;
 		LoopList<Player> allPlayers;
-		// Ptrs to elements in allPlayers
-		LoopList<Player*> activePlayers;
+		unsigned int numActivePlayers;
 		Player* dealer;
 
 };

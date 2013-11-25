@@ -7,34 +7,50 @@
 
 #include "Table.hpp"
 
-Table::Table(Game& game) {
+Table::Table(Game& g) {
 	dealer = NULL;
-	this->game = &game;
+	game = &g;
+	numActivePlayers = 0;
 }
 
 Table::~Table() {
 
 }
 
- LoopList<Player*>* Table::getActivePlayers() {
-	return &activePlayers;
+LoopList<Player>& Table::getPlayers()  {
+	return allPlayers;
 }
 
- LoopList<Player>* Table::getPlayers()  {
-	return &allPlayers;
+const Player& Table::getPlayerAtChair(int i) const {
+	return allPlayers[i];
 }
 
-const Player* Table::getPlayerAtChair(int i) const {
-	return &(allPlayers[i]);
-}
-
-const Player* Table::getDealer() const {
-	return NULL;
+const Player& Table::getDealer() const {
+	return *dealer;
 }
 
 void Table::addPlayer(Player& player) {
 	allPlayers.add(player);
-	Player *p = allPlayers.getLast();
-	if (player.isActive())
-		activePlayers.add(p);
+}
+
+void Table::setDealer(unsigned int activePlayerIndex) {
+	Player *p;
+	unsigned int tmp = -1;
+	while ( (p=allPlayers.next()) ) {
+		if (p->isActive()) tmp++;
+		if (tmp == activePlayerIndex) {
+			dealer = p;
+			break;
+		}
+	}
+}
+
+unsigned int Table::getNumberOfActivePlayers() {
+	if (allPlayers.getSize() == 0 || numActivePlayers > 0) return numActivePlayers;
+	Player *p;
+	while ((p=allPlayers.next())) {
+		if (p==NULL) break;
+		if (p->isActive()) numActivePlayers++;
+	}
+	return numActivePlayers;
 }
