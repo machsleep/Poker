@@ -27,6 +27,7 @@ Player::Player(const Player& src) {
 	this->folded = src.isFolding();
 	this->active = src.isActive();
 	this->mucked = src.doesMuck();
+	this->hand = src.getHand();
 }
 
 const double Player::getMoney() const {
@@ -63,7 +64,7 @@ const unsigned int Player::getChairIndex() const {
 	return chairIndex;
 }
 
-const std::vector<Card> Player::getHand() const {
+const std::vector<SharedPtrToCard> Player::getHand() const {
 	return hand;
 }
 
@@ -105,7 +106,7 @@ std::ostream& operator<<(std::ostream& os, const Player& player) {
 	os << player.name << " ";
 	os << "#cards: " << player.hand.size() << " ";
 	for (unsigned int i=0;i<player.hand.size();i++) {
-		os << player.hand[i] << " ";
+		os << *(player.hand[i]) << " ";
 	}
 	return os;
 }

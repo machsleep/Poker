@@ -21,12 +21,13 @@ class Deck {
 	     * Returns the top of the deck, removes this card from the deck.
 	     * If the deck's size == 0, this function will throw a message indicating as such.
 	     */
-	    virtual const Card& top();
+	    const Card& top();
+	    void shuffle();
 
 	    friend std::ostream& operator<<(std::ostream& os, const Deck& card);
 	private:
 		std::vector<Card> cards;
-		std::vector<Card> cardsDealt;
+		unsigned int currentCard;
 };
 
 #endif /* DECK_HPP_ */

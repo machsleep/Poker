@@ -23,8 +23,7 @@ void Rules::dealCards() {
 			for (int i=0;i<2;i++) {
 				while ((player = (game->table->activePlayers.next()) ) ) {
 					if (player == NULL) break;
-					const Card *c = &(game->cardDeck.top());
-					(*player)->hand.push_back(*c);
+					(*player)->hand.push_back( SharedPtrToCard(&(game->cardDeck.top())) );
 				}
 			}
 			break;

@@ -40,8 +40,8 @@ const Player* Game::getDealer() const {
 	return table->getDealer();
 }
 
-const Player* Game::getPlayerAtChair(int i) const {
-	return table->getPlayerAtChair(i);
+const Player& Game::getPlayerAtChair(int i) const {
+	return *table->getPlayerAtChair(i);
 
 }
 
@@ -57,6 +57,10 @@ void Game::listPlayers(ostream& os) const {
 	os << *table->getPlayers();
 }
 
+const Deck& Game::getDeck() const {
+	return cardDeck;
+}
+
 void Game::listActivePlayers(ostream& os) const {
 	Player *player;
 	LoopList<Player*> *activePlayers = table->getActivePlayers();
@@ -65,4 +69,8 @@ void Game::listActivePlayers(ostream& os) const {
 		os << (*player) << endl;
 	}
 	//os << *table->getActivePlayers();
+}
+
+void Game::shuffleDeck() {
+	cardDeck.shuffle();
 }

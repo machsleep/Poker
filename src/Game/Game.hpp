@@ -32,13 +32,14 @@ public:
 	 */
 	const vector<Card>* getBoard() const;
 	const Player* getDealer() const;
-	const Deck* getDeck() const;
+	const Deck& getDeck() const;
 	const LoopList<Player>* getPlayers() const;
 	const LoopList<Player*>* getActivePlayers() const;
-	const Player* getPlayerAtChair(int chair) const;
+	const Player& getPlayerAtChair(int chair) const;
 	const unsigned int& getBettingRound() const;
 
 	void dealCards();
+	void shuffleDeck();
 	void addPlayerToTable(Player& player);
 
 	/**

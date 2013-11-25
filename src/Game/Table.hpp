@@ -23,7 +23,6 @@ class Table {
 		const Player* getPlayerAtChair(int chairIdx) const;
 
 		void addPlayer(Player& player);
-
 		friend class Rules;
 
 	private:

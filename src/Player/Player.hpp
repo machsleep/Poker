@@ -39,14 +39,14 @@ class Player {
 		 * <p>
 		 * @return const std::string&, name
 		 */
-		virtual const std::string getName() const;
+		const std::string getName() const;
 
 		/**
 		 * Returns the money available to the poker player.
 		 * <p>
 		 * @return const double money, money in DOLLARS.CENTS (e.g., $14.23)
 		 */
-		virtual const double getMoney() const;
+		const double getMoney() const;
 
 		/**
 		 * Returns true if a player is playing in a game. A player is playing in a game
@@ -54,22 +54,22 @@ class Player {
 		 * <p>
 		 * @return const bool
 		 */
-		virtual const bool isPlaying() const;
+		const bool isPlaying() const;
 
 		/**
 		 * Returns true if a player is sitting out, false otherwise. (e.g., not active)
 		 * <p>
 		 * @return const bool
 		 */
-		virtual const bool isActive() const;
+		const bool isActive() const;
 
 		/**
 		 * Returns true if a player mucked his cards
 		 */
-		virtual const bool doesMuck() const;
-		virtual const bool isFolding() const;
-		virtual const unsigned int getChairIndex() const;
-		virtual const std::vector<Card> getHand() const;
+		const bool doesMuck() const;
+		const bool isFolding() const;
+		const unsigned int getChairIndex() const;
+		const std::vector<SharedPtrToCard> getHand() const;
 		virtual bool placeBid(double bidAmount);
 
 		Player& operator=(const Player& src);
@@ -85,7 +85,7 @@ class Player {
 
 	private:
 		std::string name;
-		std::vector<Card> hand;
+		std::vector<SharedPtrToCard> hand;
 		unsigned int chairIndex;
 		double money;
 		bool folded;

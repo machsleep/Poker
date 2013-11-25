@@ -10,6 +10,7 @@
 
 #include "CardTypes.hpp"
 #include <iostream>
+#include <boost/smart_ptr.hpp>
 
 class Card {
 	public:
@@ -28,5 +29,11 @@ class Card {
 		Rank::type rank;
 		bool isFaceup;
 };
+
+/**
+ * Smart pointer implemented as shared pointer to card
+ */
+typedef boost::shared_ptr<const Card> SharedPtrToCard;
+
 
 #endif /* CARD_HPP_ */

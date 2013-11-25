@@ -6,7 +6,10 @@
  */
 
 #include "Deck.hpp"
-
+#include <boost/random.hpp>
+#include <boost/generator_iterator.hpp>
+#include <algorithm>
+#include <ctime>
 /*
  * Constructs a standard poker deck of 52 Cards.
  */
@@ -19,13 +22,13 @@ Deck::Deck() {
 			cards.push_back(card);
 		}
 	}
+	currentCard=0;
 }
 
 const Card& Deck::top() {
-	if (cards.size() == 0) throw "Error: Cannot retrieve top card in Deck::top() when deck is empty.";
-	cardsDealt.push_back(cards[cards.size()-1]);
-	cards.pop_back();
-	return cardsDealt[cardsDealt.size()-1];
+	if (cards.size() == currentCard) throw "Error: Cannot retrieve top card in Deck::top() when deck is empty.";
+	currentCard+=1;
+	return cards[currentCard];
 }
 
 /*
@@ -37,6 +40,19 @@ std::ostream& operator<<(std::ostream& os, const Deck& deck) {
 		os << deck.cards[i] << std::endl;
 	}
 	return os;
+}
+
+/**
+ * Shuffles a deck using a Boost's internal randomization functions.
+ */
+void Deck::shuffle() {
+	typedef boost::mt19937 RNGType;
+	RNGType rng;
+	unsigned int time_ui = static_cast<unsigned int>( time(NULL) );
+	rng.seed(time_ui);
+	boost::uniform_int<> card_picker;
+	boost::variate_generator<RNGType, boost::uniform_int<> > cardchoice(rng, card_picker);
+	std::random_shuffle(cards.begin(), cards.end(), cardchoice);;
 }
 
 Deck::~Deck() {

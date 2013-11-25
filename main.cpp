@@ -22,6 +22,7 @@ int main(int nArgs, char** arguments) {
 
 		game.addPlayerToTable(p1);
 		game.addPlayerToTable(p2);
+		game.shuffleDeck();
 		game.dealCards();
 		game.listPlayers(cout);
 		cout << endl;
