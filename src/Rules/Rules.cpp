@@ -6,7 +6,7 @@
  */
 
 #include "Rules.hpp"
-#include "Game.hpp"
+#include "../Game/Game.hpp"
 #include <boost/random.hpp>
 #include <boost/generator_iterator.hpp>
 

@@ -4,10 +4,10 @@
  *  Created on: Nov 10, 2013
  *      Author: machsleep
  */
-#include "src/Deck/Deck.hpp"
-#include "src/Containers/LoopList.hpp"
-#include "src/Player/Player.hpp"
-#include "src/Game/Game.hpp"
+#include "../Deck/Deck.hpp"
+#include "../Containers/LoopList.hpp"
+#include "../Player/Player.hpp"
+#include "../Game/Game.hpp"
 
 
 int main(int nArgs, char** arguments) {

@@ -10,7 +10,7 @@
 
 #include "../Deck/Deck.hpp"
 #include "../Containers/LoopList.hpp"
-#include "Table.hpp"
+#include "../Table/Table.hpp"
 #include "../Player/Player.hpp"
 
 #include <vector>

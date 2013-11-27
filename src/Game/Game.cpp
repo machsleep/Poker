@@ -5,8 +5,8 @@
  *      Author: machsleep
  */
 #include "Game.hpp"
-#include "Table.hpp"
-#include "Rules.hpp"
+#include "../Table/Table.hpp"
+#include "../Rules/Rules.hpp"
 
 Game::Game() {
 	table = new Table(*this);
