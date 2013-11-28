@@ -1,3 +1,7 @@
+NO_COLOR=\x1b[0m
+OK_COLOR=\x1b[32;01m
+OK_BUILD=$(OK_COLOR)[OK]$(NO_COLOR)
+
 # Program name
 program_NAME := poker
 
@@ -41,6 +45,7 @@ all: $(program_NAME)
 # This target builds our program
 $(program_NAME): $(program_OBJS)
 	$(LINK.cc) $(program_OBJS) -o $(program_NAME)
+	@echo "$(BUILD_OK)"
 
 # This target cleans everything
 clean:
@@ -50,28 +55,3 @@ clean:
 # Final program
 distclean: clean
 
-
-
-# Color codings
-#NO_COLOR=\x1b[0m
-#OK_COLOR=\x1b[32;01m
-
-# Build progress
-#OK_BUILD=$(OK_COLOR)[OK]$(NO_COLOR)
-
-#prog : ${OBJ_FILES}
-#	${CXX} ${LDFLAGS} -o $@ $^
-	@echo Built executable "$(OK_BUILD)"
-
-#obj/Card.o : src/%/%.cpp
-#	@echo "$(NO_COLOR)"
-#	${CXX} ${CXXFLAGS} -c  $@ $<
-#	@echo Built $@ "$(OK_BUILD)"
-
-#print :
-#	@echo $(CPP_FILES) "\n"
-#	@echo $(OBJ_FILES)
-
-#clean : 
-#	-rm -f *.o
-#	-rm -f prog
