@@ -11,7 +11,8 @@
 #define DECK_HPP_
 
 #include <vector>
-#include "../Card/Card.hpp"
+
+class Card;
 
 class Deck {
 	public:
@@ -26,6 +27,7 @@ class Deck {
 
 	    friend std::ostream& operator<<(std::ostream& os, const Deck& card);
 	private:
+		int* deck; 
 		std::vector<Card> cards;
 		unsigned int currentCard;
 };

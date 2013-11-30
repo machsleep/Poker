@@ -11,8 +11,12 @@ program_CXX_SRCS := $(wildcard src/*/*.cpp)
 # .o files (what we are to build)#
 program_CXX_OBJS := $(program_CXX_SRCS:.cpp=.o)
 
+# .c files
+program_C_SRCS := $(wildcard src/*/*.c)
+program_C_OBJS := $(program_C_SRCS:.c=.o)
+
 # All objects. (if we have other objs, define them above, then list them here)# 
-program_OBJS := $(program_CXX_OBJS)
+program_OBJS := $(program_CXX_OBJS) $(program_C_OBJS)
 
 # BOOST DEPENDENCIES
 # Please ensure you have $(BOOST_ROOT) defined for your system

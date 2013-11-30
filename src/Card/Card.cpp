@@ -7,30 +7,21 @@
 #include "Card.hpp"
 
 Card::Card() {
-	this->rank = Rank::NONE;
-	this->suit = Suit::NONE;
-	this->isFaceup = false;
+	card = 0;
+	faceUp = false;
+}
+
+Card::Card(int card) {
+	this->card = card;
+	faceUp = false;
 }
 
 /**
  * Copy constructor. Simply make a copy of the src Card.
  */
 Card::Card(const Card& src) {
-	this->isFaceup = src.isFaceUp();
-	this->rank = src.getRank();
-	this->suit = src.getSuit();
-}
-
-/**
- * Constructs a new card with rank and suit. The card is initialized as face down.
- *
- * @param CardType::Rank& rank, the rank of the card
- * @param CardType::Suit& suit, the suit of the card
- */
-Card::Card(const Rank::type & rank, const Suit::type & suit) {
-	this->rank = rank;
-	this->suit = suit;
-	this->isFaceup = false;
+	this->card = src.getNumRepresentation();
+	this->faceUp = src.isFaceUp();
 }
 
 /**
@@ -38,65 +29,69 @@ Card::Card(const Rank::type & rank, const Suit::type & suit) {
  */
 Card& Card::operator=(const Card& rhs) {
 	if (this == &rhs) return (*this);
-	this->isFaceup = rhs.isFaceUp();
-	this->rank = rhs.getRank();
-	this->suit = rhs.getSuit();
+	this->faceUp = rhs.isFaceUp();
+	this->card = rhs.getNumRepresentation();
 	return (*this);
 }
 
 Card::~Card() {
-
 }
 
-Suit::type Card::getSuit() const {
-	return this->suit;
+int Card::getSuit() const {
+	return SUIT(card);
 }
 
-Rank::type Card::getRank() const {
-	return this->rank;
+int Card::getRank() const {
+	return RANK(card);
 }
 
 bool Card::isFaceUp() const {
-	return this->isFaceup;
+	return this->faceUp;
 }
 
 void Card::turn() {
-	this->isFaceup = !isFaceUp();
+	this->faceUp = !isFaceUp();
+}
+
+int Card::getNumRepresentation() const {
+	return card; 
 }
 
 std::ostream& operator<<(std::ostream& os, const Card& card) {
+	if (card.getNumRepresentation() == -1) {
+		os << "Card Not Defined";
+		return os;
+	}
 
 	// Print rank
 	switch (card.getRank()) {
-			case Rank::NONE: os << "NoRank."; break;
-			case Rank::ACE: os << "Ace."; break;
-			case Rank::TWO: os << "2."; break;
-			case Rank::THREE: os << "3."; break;
-			case Rank::FOUR: os << "4."; break;
-			case Rank::FIVE: os << "5."; break;
-			case Rank::SIX: os << "6."; break;
-			case Rank::SEVEN: os << "7."; break;
-			case Rank::EIGHT: os << "8."; break;
-			case Rank::NINE: os << "9."; break;
-			case Rank::TEN: os << "10."; break;
-			case Rank::JACK: os << "J."; break;
-			case Rank::QUEEN: os << "Q."; break;
-			case Rank::KING: os << "K."; break;
-			default: os << " ERROR: No Rank explicitly defined.";
+			//os << card.getRank() << " ";
+			case Ace: os << "Ace."; break;
+			case Deuce: os << "2."; break;
+			case Trey: os << "3."; break;
+			case Four: os << "4."; break;
+			case Five: os << "5."; break;
+			case Six: os << "6."; break;
+			case Seven: os << "7."; break;
+			case Eight: os << "8."; break;
+			case Nine: os << "9."; break;
+			case Ten: os << "10."; break;
+			case Jack: os << "J."; break;
+			case Queen: os << "Q."; break;
+			case King: os << "K."; break;
+			default: os << "No rank defined.";
 	}
 
 	// Print suit
 	switch (card.getSuit()) {
-		case Suit::NONE: os << "NoSuit."; break;
-		case Suit::SPADES: os << "Spades."; break;
-		case Suit::HEARTS: os << "Hearts."; break;
-		case Suit::CLUBS: os << "Clubs."; break;
-		case Suit::DIAMONDS: os << "Diamonds."; break;
-		default: os << " ERROR: No Suit explicitly defined.";
+		case SPADE: os << "Spades."; break;
+		case HEART: os << "Hearts."; break;
+		case CLUB: os << "Clubs."; break;
+		case DIAMOND: os << "Diamonds."; break;
+		default: os << "No Suit defined.";
 	}
-
+	
 	os << (card.isFaceUp() ? "Faceup." : "Facedown.");
-
 	return os;
 }
 

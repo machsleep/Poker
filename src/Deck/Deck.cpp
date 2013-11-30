@@ -10,18 +10,19 @@
 #include <boost/generator_iterator.hpp>
 #include <algorithm>
 #include <ctime>
+#include "../Card/Card.hpp"
+//#include "../Evaluator/Evaluator.h"
+
 /*
  * Constructs a standard poker deck of 52 Cards.
  */
 Deck::Deck() {
-	for (int suit = 1; suit <= 4; suit++) {
-		Suit::type st = static_cast<Suit::type>(suit);
-		for (int rank = 1; rank <= 13 ; rank++) {
-			Rank::type rnk = static_cast<Rank::type>(rank);
-			cards.push_back(Card(rnk,st));
-		}
+	deck = new int[52];
+	init_deck(deck);
+	for (int i=0; i<52 ; i++) {
+		cards.push_back(Card(deck[i]));
 	}
-	currentCard=-1;
+	currentCard = -1;
 }
 
 const Card& Deck::top() {
